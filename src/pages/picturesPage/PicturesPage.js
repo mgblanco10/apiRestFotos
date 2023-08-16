@@ -2,28 +2,29 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../../components/navbar/Navbar'
 import PictureObject from '../../components/pictureObject/PictureObject'
 import {LoremPicsumService} from '../../services/LoremPicsumService'
+import "./PicturesPage.css";
 
 function PicturesPage() {
+
   const loremPicsumService = LoremPicsumService(); 
   const [pictures, setPictures] = useState([]); 
+  // console.log(loremPicsumService.getAll());
 
-  useEffect(() => {
-    const fetchPictures = async () => {
-      try {
-        const response = await loremPicsumService.getAll(); 
-        setPictures(response.data); 
-      } catch (error) {
-        console.error('Error fetching pictures:', error);
-      }
-    };
-    fetchPictures(); 
+  useEffect(()=>{
+    (loremPicsumService.getAll()
+    .then(response=>{
+      setPictures(response.data)
+    }))
   }, []);
+  console.log(pictures);
   
   return (
-    <main>
+    <main className='main-container'>
       <h2>Aquí estarán todos los objetos de la primera llamada</h2>
       <Navbar />
-      <PictureObject pictures={pictures} />
+      <div className="pictures-container">
+      {pictures.map((picture,index) => (<PictureObject className="container-card" picture={picture} key={index} />))}
+      </div>
     </main>
   );
 }
