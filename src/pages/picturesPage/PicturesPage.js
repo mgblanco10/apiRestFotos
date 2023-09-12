@@ -8,7 +8,7 @@ function PicturesPage() {
 
   const loremPicsumService = LoremPicsumService(); 
   const [pictures, setPictures] = useState([]); 
-  // console.log(loremPicsumService.getAll());
+      // console.log(loremPicsumService.getAll());
 
   useEffect(()=>{
     (loremPicsumService.getAll()
